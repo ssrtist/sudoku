@@ -22,30 +22,27 @@ def valid_cell(s, n: int, x: int, y: int):
 
     return True
 
-def make_board(sboard, x, y):
-    if x>8 or y>8:
-        return
+def make_board(sboard):
     s = sboard
-    found = False
-    for n in range(1,10):
-        # print(f"testing {n} in {x}, {y}")
-        if valid_cell(s, n, x, y):
-            found = True
-            s[x][y] = n
-            # print(f"{n} fits cell {x}, {y}")
-            make_board(s, x+1, y)
-            make_board(s, x, y+1)
-        # print('current board:')
-        # print(s)
-    if not found:
-        # print(f'failed to generate board at {x}, {y}')
-        # print('current board:')
-        # print(s)
-        return
-    # return
+    for x in range(9):
+        for y in range(9):
+            if s[x][y] == 0:
+                filled = False
+                for n in range(1,10):
+                    if valid_cell(s, n, x, y):
+                        filled = True
+                        s[x][y] = n
+                        if make_board(s):
+                            return True
+                        else:
+                            filled = False
+                            s[x][y] = 0
+                if not filled:
+                    return False
+    return True
 
 # an array of all the available numbers
 # a = [i for i in range(1,10)]
 s = np.zeros((9,9))
-make_board(s, 0, 0)    
+make_board(s)
 print(s)
