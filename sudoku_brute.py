@@ -49,7 +49,7 @@ def make_board(sboard, x, y):
     # return
 
 # an array of all the available numbers
-a = array('b', [i for i in range(1,10)])
+# a = [i for i in range(1,10)]
 s = np.zeros((9,9))
-b = make_board(s, 0, 0)    
+make_board(s, 0, 0)    
 quit()

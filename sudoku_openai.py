@@ -1,19 +1,5 @@
 board = [[0 for _ in range(9)] for _ in range(9)]
 
-def fill_board(board):
-    for row in range(9):
-        for col in range(9):
-            if board[row][col] == 0:
-                for num in range(1, 10):
-                    if is_valid(board, row, col, num):
-                        board[row][col] = num
-                        if fill_board(board):
-                            return True
-                        else:
-                            board[row][col] = 0
-                return False
-    return True
-
 def is_valid(board, row, col, num):
     # Check if the number is already in the row
     if num in board[row]:
@@ -30,6 +16,20 @@ def is_valid(board, row, col, num):
     for i in range(3):
         for j in range(3):
             if board[i + start_row][j + start_col] == num:
+                return False
+    return True
+
+def fill_board(board):
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == 0:
+                for num in range(1, 10):
+                    if is_valid(board, row, col, num):
+                        board[row][col] = num
+                        if fill_board(board):
+                            return True
+                        else:
+                            board[row][col] = 0
                 return False
     return True
 
