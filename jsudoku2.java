@@ -1,17 +1,22 @@
 class sudoku2 {
     public static void main(String[] args) {
         int[][] s = new int[9][9];
+        makePuzzle(s);
+        hidePuzzle(s);
+        // game loop
+        // game loop
+        printPuzzle(s);
+    }
+    public static void makePuzzle(int s[][]) {    
         int x = 0;
         int y = 0;
-
         while (true) {
             // try the next value for the cell
             s[x][y] += 1;
             while (s[x][y] <= 9) {
                 if (validCell(s, s[x][y], x, y)) {
                     if (x == 8 && y == 8) {
-                        System.out.println("Puzzle filled");
-                        print2D(s);
+                        System.out.println("Puzzle generated successfully.");
                         return;
                     }
 
@@ -47,6 +52,16 @@ class sudoku2 {
         }
     }
 
+    // hide certain pieces from full puzzle board
+    public static int[][] hidePuzzle(int s[][]){
+        return s;
+    }
+
+    // fill in one cell as play selects
+    public static int[][] fillPuzzle(int s[][], int n, int x, int y){
+        return s;
+    }
+
     public static boolean validCell(int[][] s, int n, int x, int y) {
         // 0 is invalid
         if (n == 0) {
@@ -79,8 +94,11 @@ class sudoku2 {
         return true;
     }
 
-    public static void print2D(int mat[][]) {
+    public static void printPuzzle(int mat[][]) {
+        System.out.println("Full Puzzle Board:");
+        System.out.println("  A B C D E F G H I");
         for (int i = 0; i < 9; i++) {
+            System.out.print((char)(65+i) + " ");
             for (int j = 0; j < 9; j++) {
                 System.out.print(mat[i][j] + " ");
             }
