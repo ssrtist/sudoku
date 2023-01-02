@@ -26,40 +26,42 @@ def valid_cell(s, n: int, x: int, y: int):
 
     return True
 
-s = np.zeros((9,9))
-x = 0
-y = 0
-while True:
-    s[x][y]+=1
-    while s[x][y]<=9:
-        if valid_cell(s, s[x][y], x, y):
-            if x==8 and y==8:
-                print(f'x={x}, y={y}, s[{x}][{y}]={s[x][y]}')
-                print('Puzzle filled')
-                print(s)
-                quit()
+def fill_board(s):
+    x = 0
+    y = 0
+    while True:
+        # try the next value for the cell
+        s[x][y]+=1
+        while s[x][y]<=9:
+            if valid_cell(s, s[x][y], x, y):
+                if x==8 and y==8:
+                    print('Puzzle filled')
+                    return s
 
-            # move to next cell
-            x+=1
-            if x>8:
-                y+=1
-                x=0
-                if y>8:
-                    print('Failed to generate puzzle (y > 8)')
-                    quit()
-            break
-        else:
-            s[x][y]+=1
-
-    # if there's no valid number go back one cell
-    if s[x][y]>9:
-        s[x][y]=0
-        x-=1
-        if x<0: 
-            y-=1
-            x=8
-            if y<0:
-                print('All iterations complete')
+                # move to next cell
+                x+=1
+                if x>8:
+                    y+=1
+                    x=0
+                    if y>8:
+                        print('Failed to generate puzzle (y > 8)')
+                        quit()
                 break
-        # break
-print(s)
+            else:
+                s[x][y]+=1
+
+        # if there's no valid number go back one cell
+        if s[x][y]>9:
+            s[x][y]=0
+            x-=1
+            if x<0: 
+                y-=1
+                x=8
+                if y<0:
+                    print('All iterations complete')
+                    quit()
+            # break
+
+sudoku = np.zeros((9,9))
+fill_board(sudoku)
+print(sudoku)
