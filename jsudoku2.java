@@ -1,4 +1,4 @@
-class puzzle {
+class sudoku2 {
     public static void main(String[] args) {
         int[][] s = new int[9][9];
         int x = 0;
