@@ -1,16 +1,9 @@
-import java.util.Random;
-
-class Sudoku {
+class puzzle {
     public static void main(String[] args) {
         int[][] s = new int[9][9];
-        fillBoard(s);
-        print2D(s);
-    }
-
-    public static void fillBoard(int[][] s) {
         int x = 0;
         int y = 0;
-        Random random = new Random();
+
         while (true) {
             // try the next value for the cell
             s[x][y] += 1;
@@ -18,8 +11,10 @@ class Sudoku {
                 if (validCell(s, s[x][y], x, y)) {
                     if (x == 8 && y == 8) {
                         System.out.println("Puzzle filled");
-                        return s;
+                        print2D(s);
+                        return;
                     }
+
                     // move to next cell
                     x += 1;
                     if (x > 8) {
@@ -35,6 +30,7 @@ class Sudoku {
                     s[x][y] += 1;
                 }
             }
+
             // if there's no valid number go back one cell
             if (s[x][y] > 9) {
                 s[x][y] = 0;
@@ -56,22 +52,32 @@ class Sudoku {
         if (n == 0) {
             return false;
         }
+
         // check row
         for (int xx = 0; xx < 9; xx++) {
             if (xx != x && s[xx][y] == n) {
                 return false;
             }
         }
+
         // check column
         for (int yy = 0; yy < 9; yy++) {
             if (yy != y && s[x][yy] == n) {
                 return false;
             }
         }
+
         // check square
         for (int xs = x / 3 * 3; xs < x / 3 * 3 + 3; xs++) {
             for (int ys = y / 3 * 3; ys < y / 3 * 3 + 3; ys++) {
-                if (!(xs == x && ys == y) && s[xs][ys] == n)
+                if (!(xs == x && ys == y) && s[xs][ys] == n) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
     public static void print2D(int mat[][]) {
         for (int i = 0; i < 9; i++) {
@@ -81,4 +87,5 @@ class Sudoku {
             System.out.println();
         }
     }
+
 }

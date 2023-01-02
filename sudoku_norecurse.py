@@ -1,5 +1,3 @@
-from array import array
-import random
 import numpy as np
 
 def valid_cell(s, n: int, x: int, y: int):
